@@ -1,9 +1,10 @@
-﻿import { useEffect } from 'react'
+﻿import { useCallback, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import EventCard from '../components/EventCard'
 import EventCardSkeleton from '../components/EventCardSkeleton'
 import Pagination from '../components/Pagination'
+import SearchBar from '../components/SearchBar'
 import StatusMessage from '../components/StatusMessage'
 import { fetchEvents, setFilters } from '../features/events/eventsSlice'
 import { getReachablePages, PAGE_SIZE } from '../services/ticketmaster'
@@ -13,14 +14,19 @@ export default function Events() {
   const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
   const { items, pagination, listStatus, listError } = useSelector((state) => state.events)
-  const { filters, page } = parseSearchParams(searchParams)
   const query = searchParams.toString()
+  const { filters, page } = useMemo(() => parseSearchParams(new URLSearchParams(query)), [query])
 
   useEffect(() => {
-    const parsed = parseSearchParams(new URLSearchParams(query))
-    dispatch(setFilters(parsed.filters))
-    dispatch(fetchEvents({ filters: parsed.filters, page: parsed.page - 1 }))
-  }, [dispatch, query])
+    dispatch(setFilters(filters))
+    dispatch(fetchEvents({ filters, page: page - 1 }))
+  }, [dispatch, filters, page])
+
+  const updateFilters = useCallback(
+    (patch) => setSearchParams(buildSearchParams({ ...filters, ...patch }, 1)),
+    [filters, setSearchParams],
+  )
+  const searchKeyword = useCallback((keyword) => updateFilters({ keyword }), [updateFilters])
 
   const retry = () => dispatch(fetchEvents({ filters, page: page - 1 }))
   const changePage = (next) => {
@@ -56,6 +62,7 @@ export default function Events() {
   return (
     <section>
       <h1>Events</h1>
+      <SearchBar value={filters.keyword} onSearch={searchKeyword} />
       {content}
     </section>
   )

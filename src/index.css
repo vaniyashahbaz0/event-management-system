@@ -124,3 +124,5 @@ form .btn { width: 100%; }
 .pagination-gap { color: var(--muted); padding: 0 0.25rem; }
 
 .card.narrow { max-width: 440px; margin: 0 auto; }
+
+.event-grid, .status-message { margin-top: 1rem; }
