@@ -34,7 +34,7 @@ export default function Login() {
   }
 
   return (
-    <div className="card">
+    <div className="card narrow">
       <h1>Login</h1>
       {error && (
         <p className="form-error" role="alert">
@@ -52,3 +52,4 @@ export default function Login() {
     </div>
   )
 }
+

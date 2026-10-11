@@ -10,7 +10,7 @@ export default function App() {
   return (
     <>
       <Navbar />
-      <main className="container">
+      <main className="container wide">
         <Routes>
           <Route path="/" element={<Navigate to="/events" replace />} />
           <Route path="/login" element={<Login />} />
@@ -22,4 +22,5 @@ export default function App() {
     </>
   )
 }
+
 

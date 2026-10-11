@@ -38,7 +38,7 @@ export default function Register() {
   const emailError = errors.email || error
 
   return (
-    <div className="card">
+    <div className="card narrow">
       <h1>Register</h1>
       <form onSubmit={handleSubmit} noValidate>
         <FormInput id="name" label="Name" value={values.name} onChange={handleChange} error={errors.name} autoComplete="name" />
@@ -53,3 +53,4 @@ export default function Register() {
     </div>
   )
 }
+

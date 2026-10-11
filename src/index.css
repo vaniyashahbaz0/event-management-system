@@ -79,3 +79,48 @@ form .btn { width: 100%; }
   .navbar { padding: 0.6rem 0.75rem; }
   .container { margin: 1rem auto; }
 }
+
+/* Events */
+.container.wide { max-width: 1100px; }
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: var(--primary-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.event-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.event-card-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--border); }
+.event-card-placeholder { display: grid; place-items: center; color: var(--muted); font-size: 0.85rem; }
+.event-card-body { display: flex; flex-direction: column; gap: 0.35rem; flex: 1; padding: 0.9rem; }
+.event-card-title { margin: 0.25rem 0; font-size: 1.05rem; }
+.event-card-meta { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.event-card-link { margin-top: auto; text-align: center; text-decoration: none; }
+
+.skeleton .event-card-image { animation: pulse 1.2s ease-in-out infinite; }
+.skeleton-line { height: 0.9rem; border-radius: 4px; background: var(--border); animation: pulse 1.2s ease-in-out infinite; }
+.skeleton-line.short { width: 40%; }
+@keyframes pulse { 50% { opacity: 0.5; } }
+
+.status-message { text-align: center; padding: 2.5rem 1rem; }
+
+.pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.4rem; margin: 1.5rem 0; }
+.pagination .btn { padding: 0.4rem 0.75rem; }
+.pagination .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.pagination-gap { color: var(--muted); padding: 0 0.25rem; }
+
+.card.narrow { max-width: 440px; margin: 0 auto; }
