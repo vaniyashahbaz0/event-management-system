@@ -126,3 +126,25 @@ form .btn { width: 100%; }
 .card.narrow { max-width: 440px; margin: 0 auto; }
 
 .event-grid, .status-message { margin-top: 1rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+.chip {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--primary); }
+.chip-active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0 1rem;
+  align-items: end;
+}
+.filters-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.checkbox { display: flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.9rem; }

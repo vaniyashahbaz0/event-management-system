@@ -2,20 +2,26 @@
 import { useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import EventCard from '../components/EventCard'
+import CategoryChips from '../components/CategoryChips'
 import EventCardSkeleton from '../components/EventCardSkeleton'
+import EventFilters from '../components/EventFilters'
 import Pagination from '../components/Pagination'
 import SearchBar from '../components/SearchBar'
 import StatusMessage from '../components/StatusMessage'
-import { fetchEvents, setFilters } from '../features/events/eventsSlice'
+import { DEFAULT_FILTERS, fetchCategories, fetchEvents, setFilters } from '../features/events/eventsSlice'
 import { getReachablePages, PAGE_SIZE } from '../services/ticketmaster'
 import { buildSearchParams, parseSearchParams } from '../utils/eventParams'
 
 export default function Events() {
   const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
-  const { items, pagination, listStatus, listError } = useSelector((state) => state.events)
+  const { items, pagination, categories, listStatus, listError } = useSelector((state) => state.events)
   const query = searchParams.toString()
   const { filters, page } = useMemo(() => parseSearchParams(new URLSearchParams(query)), [query])
+
+  useEffect(() => {
+    dispatch(fetchCategories())
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(setFilters(filters))
@@ -28,6 +34,7 @@ export default function Events() {
   )
   const searchKeyword = useCallback((keyword) => updateFilters({ keyword }), [updateFilters])
 
+  const resetFilters = () => setSearchParams(buildSearchParams({ ...DEFAULT_FILTERS, keyword: filters.keyword }, 1))
   const retry = () => dispatch(fetchEvents({ filters, page: page - 1 }))
   const changePage = (next) => {
     setSearchParams(buildSearchParams(filters, next))
@@ -63,7 +70,11 @@ export default function Events() {
     <section>
       <h1>Events</h1>
       <SearchBar value={filters.keyword} onSearch={searchKeyword} />
+      <CategoryChips categories={categories} selected={filters.category} onSelect={(category) => updateFilters({ category })} />
+      <EventFilters filters={filters} categories={categories} onChange={updateFilters} onReset={resetFilters} />
       {content}
     </section>
   )
 }
+
+

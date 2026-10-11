@@ -5,6 +5,11 @@
 export default function useDebouncedInput(value, onCommit, delay = 500) {
   const [text, setText] = useState(value)
   const committed = useRef(value)
+  const latestOnCommit = useRef(onCommit)
+
+  useEffect(() => {
+    latestOnCommit.current = onCommit
+  })
 
   useEffect(() => {
     if (value !== committed.current) {
@@ -17,10 +22,10 @@ export default function useDebouncedInput(value, onCommit, delay = 500) {
     if (text === committed.current) return undefined
     const timer = setTimeout(() => {
       committed.current = text
-      onCommit(text)
+      latestOnCommit.current(text)
     }, delay)
     return () => clearTimeout(timer)
-  }, [text, onCommit, delay])
+  }, [text, delay])
 
   return [text, setText]
 }
