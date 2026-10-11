@@ -148,3 +148,22 @@ form .btn { width: 100%; }
 }
 .filters-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1rem; }
 .checkbox { display: flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.9rem; }
+
+/* Event details */
+.back-btn { margin-bottom: 1rem; }
+.details-image { width: 100%; max-height: 420px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+.details-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.details-header h1 { margin: 0; }
+.status-cancelled, .status-offsale { background: #fef2f2; color: var(--danger); }
+.details-list { margin: 1.25rem 0; }
+.detail-row { display: grid; grid-template-columns: 120px 1fr; gap: 0.5rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+.detail-row dt { font-weight: 600; color: var(--muted); }
+.detail-row dd { margin: 0; overflow-wrap: anywhere; }
+.details-link { display: inline-block; text-decoration: none; }
+.details-skeleton { display: flex; flex-direction: column; gap: 0.75rem; }
+.details-skeleton .event-card-image { aspect-ratio: 21 / 9; border-radius: 8px; }
+#registration-slot { margin-top: 1rem; }
+
+@media (max-width: 480px) {
+  .detail-row { grid-template-columns: 1fr; gap: 0.1rem; }
+}
