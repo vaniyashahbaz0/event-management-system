@@ -205,3 +205,18 @@ form .btn { width: 100%; }
 .toast-info { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
 .toast-error { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
 .toast-close { border: none; background: transparent; color: inherit; font-size: 1.25rem; line-height: 1; cursor: pointer; }
+
+/* My Events */
+.navbar-links a.active { font-weight: 700; }
+.count-badge {
+  display: inline-block;
+  min-width: 1.4rem;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
