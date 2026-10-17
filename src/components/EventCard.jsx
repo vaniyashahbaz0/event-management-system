@@ -3,10 +3,17 @@ import { useSelector } from 'react-redux'
 import { selectIsRegistered } from '../features/registrations/registrationsSlice'
 import { formatDate, formatLocation, formatTime } from '../utils/format'
 
-export default function EventCard({ event }) {
+const formatRegisteredOn = (iso) => {
+  const d = new Date(iso)
+  return Number.isNaN(d.getTime()) ? null : d.toLocaleDateString(undefined, { dateStyle: 'medium' })
+}
+
+// registeredAt (optional) shows when the user registered; children render extra actions.
+export default function EventCard({ event, registeredAt, children }) {
   const registered = useSelector((state) => selectIsRegistered(state, event.id))
   const time = formatTime(event.time)
   const location = formatLocation(event.venueName, event.city)
+  const registeredOn = registeredAt ? formatRegisteredOn(registeredAt) : null
 
   return (
     <article className="event-card">
@@ -26,9 +33,11 @@ export default function EventCard({ event }) {
           {time && ` · ${time}`}
         </p>
         {location && <p className="event-card-meta">{location}</p>}
+        {registeredOn && <p className="event-card-meta">Registered on {registeredOn}</p>}
         <Link className="btn btn-outline event-card-link" to={`/events/${event.id}`}>
           View details
         </Link>
+        {children}
       </div>
     </article>
   )
