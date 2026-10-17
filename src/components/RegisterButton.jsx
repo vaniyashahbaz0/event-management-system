@@ -1,9 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  cancelRegistration,
-  registerForEvent,
-  selectIsRegistered,
-} from '../features/registrations/registrationsSlice'
+import { useSelector } from 'react-redux'
+import { selectIsRegistered } from '../features/registrations/registrationsSlice'
+import { useRegistrationActions } from '../hooks/useRegistrationActions'
 import { isPastEvent } from '../utils/eventTime'
 
 // Returns why registration is unavailable, or null when it is allowed.
@@ -15,11 +12,9 @@ function getBlockReason(event) {
 }
 
 export default function RegisterButton({ event }) {
-  const dispatch = useDispatch()
   const user = useSelector((state) => state.auth.user)
   const registered = useSelector((state) => selectIsRegistered(state, event.id))
-  const past = isPastEvent(event)
-  const blockReason = getBlockReason(event)
+  const { register, cancel } = useRegistrationActions()
 
   if (!user) return null
 
@@ -27,12 +22,8 @@ export default function RegisterButton({ event }) {
     return (
       <div className="registration">
         <span className="badge badge-success">You're registered</span>
-        {!past && (
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={() => dispatch(cancelRegistration({ userId: user.id, eventId: event.id }))}
-          >
+        {!isPastEvent(event) && (
+          <button type="button" className="btn btn-danger" onClick={() => cancel(event)}>
             Cancel registration
           </button>
         )}
@@ -40,17 +31,13 @@ export default function RegisterButton({ event }) {
     )
   }
 
+  const blockReason = getBlockReason(event)
   return (
     <div className="registration">
-      <button
-        type="button"
-        className="btn"
-        disabled={Boolean(blockReason)}
-        onClick={() => dispatch(registerForEvent({ userId: user.id, event }))}
-      >
+      <button type="button" className="btn" disabled={Boolean(blockReason)} onClick={() => register(event)}>
         Register for this event
       </button>
-      {blockReason && <p className="muted" role="status">{blockReason}</p>}
+      {blockReason && <p className="muted">{blockReason}</p>}
     </div>
   )
 }
