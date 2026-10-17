@@ -6,7 +6,11 @@ import { loadJSON } from '../../utils/storage'
 
 const loadUsers = () => {
   const users = loadJSON('users', [])
-  return Array.isArray(users) ? users : []
+  if (!Array.isArray(users)) return []
+  // Drop malformed entries so a corrupted localStorage cannot crash login/register.
+  return users.filter(
+    (u) => u && typeof u.id === 'string' && typeof u.email === 'string' && typeof u.password === 'string',
+  )
 }
 
 const loadCurrentUser = () => {
