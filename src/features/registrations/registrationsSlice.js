@@ -1,4 +1,4 @@
-import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
+﻿import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit'
 import { loadJSON } from '../../utils/storage'
 
 export const STORAGE_KEY = 'registrations'
@@ -45,6 +45,10 @@ const registrationsSlice = createSlice({
         },
       }),
       reducer(state, action) {
+        const { userId, eventId } = action.payload
+        // Duplicates are rejected here so they are impossible even if the UI is bypassed.
+        const duplicate = state.items.some((r) => r.userId === userId && r.eventId === eventId)
+        if (duplicate) return
         state.items.push(action.payload)
       },
     },
