@@ -222,3 +222,44 @@ form .btn { width: 100%; }
 }
 .my-events-section { margin-top: 1.5rem; }
 .my-events-section h2 { font-size: 1.2rem; }
+
+/* Polish: focus, consistency, responsiveness */
+h1 { font-size: 1.75rem; margin: 0 0 0.5rem; }
+a.btn { display: inline-block; color: #fff; text-decoration: none; }
+a.btn-outline { color: var(--primary); }
+.btn:focus-visible,
+.chip:focus-visible,
+.toast-close:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input[type='checkbox']:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn-danger:focus-visible { outline-color: var(--danger); }
+.navbar-links { flex-wrap: wrap; }
+.navbar-links a { text-decoration: none; }
+.navbar-links a:hover { text-decoration: underline; }
+.event-card .btn { width: 100%; }
+img { max-width: 100%; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.5rem; }
+  .container.wide { margin-top: 1rem; }
+  .filters { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .navbar { flex-direction: column; align-items: flex-start; }
+  .navbar-links { width: 100%; gap: 0.6rem 1rem; }
+  .navbar-links .btn { margin-left: auto; }
+  .filters { grid-template-columns: 1fr; }
+  .event-grid { grid-template-columns: 1fr; }
+  .card { padding: 1rem; }
+  .toast-container { align-items: stretch; }
+  .toast { max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton .event-card-image, .skeleton-line { animation: none; }
+}
