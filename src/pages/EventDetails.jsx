@@ -1,6 +1,7 @@
 ﻿import { useEffect } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import RegisterButton from '../components/RegisterButton'
 import StatusMessage from '../components/StatusMessage'
 import { fetchEventById } from '../features/events/eventsSlice'
 import { formatDate, formatLocation, formatTime } from '../utils/format'
@@ -94,8 +95,9 @@ export default function EventDetails() {
             Official Ticketmaster page
           </a>
         )}
-        {/* TODO: the event Register button will be rendered inside this slot later. */}
-        <div id="registration-slot"></div>
+        <div id="registration-slot">
+          <RegisterButton event={event} />
+        </div>
       </article>
     </section>
   )
